@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Exclude PDF files except resumee.pdf
+*.pdf
+!public/resumee.pdf

@@ -1,9 +1,24 @@
 import React, { useState } from 'react';
-import { Heart, Mail, Phone, MapPin, GraduationCap, Briefcase, Languages, User, Menu, X, FileDown, Code, Info, Link, Github } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Heart, Mail, Phone, MapPin, GraduationCap, Briefcase, Languages, User, Menu, X, FileDown, Code, Info, Link, Github, Eye } from 'lucide-react';
 import { projects } from './data/projects';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -14,9 +29,14 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 shadow-sm">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-100 to-purple-50">
+      {/* Enhanced Navigation */}
+      <motion.nav 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100 }}
+        className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 shadow-sm"
+      >
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             <h1 className="text-2xl font-serif italic text-gray-800 hover:text-rose-500 transition-colors duration-300">AS</h1>
@@ -41,14 +61,35 @@ function App() {
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-rose-400 transition-all duration-300 group-hover:w-full"></span>
                 </button>
               ))}
-              <a 
-                href="/resumee.pdf" 
-                download 
-                className="px-6 py-2 bg-rose-500 text-white rounded-full hover:bg-rose-600 transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 shadow-sm"
-              >
-                <FileDown className="w-4 h-4" />
-                <span>Download CV</span>
-              </a>
+              <div className="relative group">
+                <button 
+                  className="px-6 py-2 bg-rose-500 text-white rounded-full hover:bg-rose-600 transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 shadow-sm"
+                  onClick={() => window.open('/resumee.pdf', '_blank')}
+                >
+                  <FileDown className="w-4 h-4" />
+                  <span>View CV</span>
+                </button>
+                {/* Dropdown menu */}
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200">
+                  <a 
+                    href="/resumee.pdf"
+                    download="Angelica_Sudoy_CV.pdf"
+                    className="block px-4 py-2 text-gray-700 hover:bg-rose-50 hover:text-rose-600 transition-colors duration-200 flex items-center space-x-2"
+                  >
+                    <FileDown className="w-4 h-4" />
+                    <span>Download CV</span>
+                  </a>
+                  <a 
+                    href="/resumee.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-4 py-2 text-gray-700 hover:bg-rose-50 hover:text-rose-600 transition-colors duration-200 flex items-center space-x-2"
+                  >
+                    <Eye className="w-4 h-4" />
+                    <span>Preview CV</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -74,48 +115,106 @@ function App() {
             >
               Contact
             </button>
-            <a 
-              href="/Angelica_Sudoy_CV.pdf" 
-              download 
-              className="block w-full text-left px-4 py-2 text-rose-500 hover:bg-rose-50 hover:text-rose-600 rounded-lg transition flex items-center"
-            >
-              <FileDown className="w-4 h-4 mr-1" />
-              Download CV
-            </a>
+            <div className="space-y-2">
+              <a 
+                href="/resumee.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-rose-50 hover:text-rose-500 rounded-lg transition flex items-center space-x-2"
+              >
+                <Eye className="w-4 h-4" />
+                <span>Preview CV</span>
+              </a>
+              <a 
+                href="/resumee.pdf"
+                download="Angelica_Sudoy_CV.pdf"
+                className="block w-full text-left px-4 py-2 text-rose-500 hover:bg-rose-50 hover:text-rose-600 rounded-lg transition flex items-center space-x-2"
+              >
+                <FileDown className="w-4 h-4" />
+                <span>Download CV</span>
+              </a>
+            </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
-      {/* Hero Section - Enhanced */}
+      {/* Enhanced Hero Section */}
       <header className="relative min-h-screen flex items-center justify-center pt-20">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-rose-50 to-white"></div>
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1634711153082-8949a603f15d?q=80&w=2069&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
-          {/* Enhanced animated background elements */}
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-            <div className="animate-float-slow absolute top-1/4 left-1/4 w-72 h-72 bg-rose-200/50 rounded-full mix-blend-multiply filter blur-xl"></div>
-            <div className="animate-float-slower absolute top-1/3 right-1/4 w-72 h-72 bg-pink-200/50 rounded-full mix-blend-multiply filter blur-xl"></div>
-            <div className="animate-float absolute bottom-1/4 right-1/3 w-72 h-72 bg-purple-200/50 rounded-full mix-blend-multiply filter blur-xl"></div>
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-rose-100 to-purple-50 opacity-90"></div>
+          {/* Animated background elements */}
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360] 
+            }}
+            transition={{ 
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear" 
+            }}
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/30 rounded-full mix-blend-multiply filter blur-xl"
+          />
+          <motion.div 
+            animate={{ 
+              scale: [1.2, 1, 1.2],
+              rotate: [180, 360, 180] 
+            }}
+            transition={{ 
+              duration: 15,
+              repeat: Infinity,
+              ease: "linear" 
+            }}
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-rose-200/30 rounded-full mix-blend-multiply filter blur-xl"
+          />
         </div>
-        
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="relative mx-auto mb-12 w-56 h-56">
-            <div className="absolute inset-0 bg-gradient-to-br from-rose-400 to-pink-400 rounded-full animate-spin-slow opacity-75"></div>
-            <div className="absolute inset-3 bg-white rounded-full"></div>
-            <img 
-              src="/angelpro.jpeg" 
-              alt="Angelica Sudoy" 
-              className="absolute inset-4 rounded-full object-cover object-center animate-profile-appear shadow-lg"
+
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 text-center px-4 max-w-4xl mx-auto"
+        >
+          {/* Profile Photo with enhanced animation */}
+          <div className="relative mx-auto mb-12 w-48 h-48 md:w-56 md:h-56">
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute -inset-2 bg-gradient-to-br from-rose-400 via-pink-400 to-purple-400 rounded-full opacity-75 blur-sm"
             />
+            <div className="absolute inset-0 bg-white rounded-full" />
+            <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+              className="absolute inset-[3px] overflow-hidden rounded-full bg-white"
+            >
+              <img 
+                src="https://media-hosting.imagekit.io//3109b4e3de7c42eb/angelpro.jpeg?Expires=1834210486&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=V2o~4fis6z0yJjb3VxVOJuZpeBi1dzfAE7UQGM5ZMe6yTd1hlUgjaBbepWL1msQtma7W6d6hMrodADfOwbNI4aSHnsRRVPapBHuC5nMyef6hT3tB7fIli4MYk8pZwF3yv7vzcRbT99r3peh3Eaz6cVy1EKld9UOU7EeYTXAf66Hq-671ZQSB3JqlOeNt1hmMOq9f1-IB93IZ3LaS9GXa5mE6mha-uGs1MOMyOijdsKxv09XGprszCkjGs2IT3F-hjiGHnFbgiQDfndyV7YL9KuacpBVJLzZfdw1-U~r4-Jm0HQo185er7humCbPM29oNKlR0UY4ZFHl0Z-r7PRxAWQ__"
+                alt="Angelica Sudoy" 
+                className="w-full h-full object-cover object-center"
+              />
+            </motion.div>
           </div>
-          <h1 className="text-5xl md:text-7xl font-light text-gray-800 mb-6 tracking-tight">
+
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-5xl md:text-7xl font-light text-gray-800 mb-6 tracking-tight"
+          >
             Angelica Ureta <span className="font-serif italic text-rose-500">Sudoy</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-light">
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-light"
+          >
             Business Administrator skilled in delivering professional clerical support in dynamic environments
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </header>
 
       {/* Main Content */}
@@ -158,24 +257,39 @@ function App() {
           </div>
         </section>
 
-        {/* Projects Section - Enhanced */}
-        <section id="projects" className="scroll-mt-20 py-20 bg-gray-50">
+        {/* Projects Section with stagger animation */}
+        <motion.section 
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          id="projects" 
+          className="scroll-mt-20 py-20 bg-white/80 backdrop-blur-sm"
+        >
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-light text-gray-800 mb-12 flex items-center space-x-3">
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-4xl font-light text-gray-800 mb-12 flex items-center space-x-3"
+            >
               <Code className="w-8 h-8 text-rose-400" />
               <span>Projects & Experience</span>
-            </h2>
+            </motion.h2>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {projects.map((project) => (
-                <div 
+              {projects.map((project, index) => (
+                <motion.div 
                   key={project.id}
-                  className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  variants={fadeInUp}
+                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                  className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
                 >
                   <div className="aspect-video w-full overflow-hidden">
-                    <img 
+                    <motion.img 
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.3 }}
                       src={project.image}
                       alt={project.imageAlt}
-                      className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                      className="h-full w-full object-cover object-center"
                     />
                   </div>
                   <div className="p-8">
@@ -183,7 +297,9 @@ function App() {
                     <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
                     <div className="flex items-center space-x-4">
                       {project.detailsUrl && (
-                        <a 
+                        <motion.a 
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                           href={project.detailsUrl}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -191,7 +307,7 @@ function App() {
                         >
                           <Link className="w-4 h-4" />
                           <span>View Project</span>
-                        </a>
+                        </motion.a>
                       )}
                       {project.repoUrl && (
                         <a 
@@ -206,11 +322,11 @@ function App() {
                       )}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Education */}
         <section className="bg-white p-8 rounded-xl shadow-sm">
@@ -295,8 +411,13 @@ function App() {
         </section>
       </main>
 
-      {/* Footer - Enhanced */}
-      <footer className="bg-white border-t border-gray-100 py-16">
+      {/* Footer with fade in animation */}
+      <motion.footer 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="bg-white/90 backdrop-blur-sm border-t border-gray-100 py-16"
+      >
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div>
@@ -338,7 +459,7 @@ function App() {
             <p className="text-gray-500">© {new Date().getFullYear()} Angelica Ureta Sudoy. All rights reserved.</p>
           </div>
         </div>
-      </footer>
+      </motion.footer>
     </div>
   );
 }

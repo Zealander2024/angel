@@ -78,3 +78,14 @@ h1, h2, h3, h4, h5, h6 {
 .animate-profile-appear {
   animation: profile-appear 1s ease-out forwards;
 }
+
+/* Add these new gradient utilities */
+@layer utilities {
+  .bg-gradient-feminine {
+    @apply bg-gradient-to-br from-pink-50 via-rose-100 to-purple-50;
+  }
+  
+  .text-gradient-feminine {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-purple-500;
+  }
+}
