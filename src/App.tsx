@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useAnimationControls } from 'framer-motion';
 import { Heart, Mail, Phone, MapPin, GraduationCap, Briefcase, Languages, User, Menu, X, FileDown, Code, Info, Link, Github, Eye } from 'lucide-react';
 import { projects } from './data/projects';
 
@@ -28,8 +28,92 @@ function App() {
     setIsMenuOpen(false);
   };
 
+  const BackgroundAnimation = () => {
+    return (
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Main gradient background */}
+        <div className="absolute inset-0 bg-gradient-feminine opacity-90" />
+        
+        {/* Animated gradient orbs */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+            x: [0, 50, 0],
+            y: [0, 30, 0]
+          }}
+          transition={{ 
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear" 
+          }}
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-rose-200/20 to-pink-200/20 rounded-full mix-blend-multiply filter blur-3xl"
+        />
+        
+        <motion.div 
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            rotate: [180, 360, 180],
+            x: [0, -30, 0],
+            y: [0, 50, 0]
+          }}
+          transition={{ 
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear" 
+          }}
+          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-gradient-to-br from-purple-200/20 to-rose-200/20 rounded-full mix-blend-multiply filter blur-3xl"
+        />
+        
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.3, 1],
+            rotate: [0, -180, -360],
+            x: [0, -20, 0],
+            y: [0, -40, 0]
+          }}
+          transition={{ 
+            duration: 18,
+            repeat: Infinity,
+            ease: "linear" 
+          }}
+          className="absolute top-1/2 right-1/3 w-[400px] h-[400px] bg-gradient-to-br from-pink-200/20 to-purple-200/20 rounded-full mix-blend-multiply filter blur-3xl"
+        />
+
+        {/* Sparkles */}
+        <div className="absolute inset-0">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ 
+                opacity: 0,
+                scale: 0,
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight
+              }}
+              animate={{ 
+                opacity: [0, 1, 0],
+                scale: [0, 1, 0],
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight
+              }}
+              transition={{
+                duration: Math.random() * 3 + 2,
+                repeat: Infinity,
+                delay: Math.random() * 2
+              }}
+              className="absolute w-1 h-1 bg-white rounded-full"
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-100 to-purple-50">
+    <div className="min-h-screen relative overflow-hidden">
+      <BackgroundAnimation />
+      
       {/* Enhanced Navigation */}
       <motion.nav 
         initial={{ y: -100 }}
@@ -127,7 +211,7 @@ function App() {
               </a>
               <a 
                 href="/resumee.pdf"
-                download="Angelica_Sudoy_CV.pdf"
+                download="/resumee.pdf"
                 className="block w-full text-left px-4 py-2 text-rose-500 hover:bg-rose-50 hover:text-rose-600 rounded-lg transition flex items-center space-x-2"
               >
                 <FileDown className="w-4 h-4" />
@@ -212,7 +296,7 @@ function App() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-light"
           >
-            Business Administrator skilled in delivering professional clerical support in dynamic environments
+            Bachelor Of Science Information technology skilled in delivering professional clerical support in dynamic environments
           </motion.p>
         </motion.div>
       </header>
