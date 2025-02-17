@@ -109,6 +109,7 @@ h1, h2, h3, h4, h5, h6 {
 @layer utilities {
   .bg-gradient-feminine {
     @apply bg-gradient-to-br from-pink-50 via-rose-100 to-purple-50;
+    transform: translateZ(0);
   }
   
   .text-gradient-feminine {
@@ -117,19 +118,41 @@ h1, h2, h3, h4, h5, h6 {
   
   .bg-gradient-orb-1 {
     @apply bg-gradient-to-br from-rose-200/30 via-pink-300/20 to-purple-200/30;
+    transform: translateZ(0);
   }
   
   .bg-gradient-orb-2 {
     @apply bg-gradient-to-br from-purple-200/30 via-rose-300/20 to-pink-200/30;
+    transform: translateZ(0);
   }
   
   .bg-gradient-orb-3 {
     @apply bg-gradient-to-br from-pink-200/30 via-purple-300/20 to-rose-200/30;
+    transform: translateZ(0);
   }
   
-  .blur-3xl {
-    --tw-blur: blur(64px);
+  .blur-2xl {
+    --tw-blur: blur(40px);
     filter: var(--tw-blur);
+  }
+}
+
+/* Add these performance optimizations */
+.will-change-transform {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduce motion if user prefers */
+@media (prefers-reduced-motion: reduce) {
+  .will-change-transform {
+    will-change: auto;
+  }
+  
+  .motion-safe\:animate-none {
+    animation: none !important;
   }
 }
 

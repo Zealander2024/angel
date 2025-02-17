@@ -34,55 +34,60 @@ function App() {
         {/* Main gradient background */}
         <div className="absolute inset-0 bg-gradient-feminine opacity-90" />
         
-        {/* Animated gradient orbs */}
+        {/* Optimized animated gradient orbs */}
         <motion.div 
+          initial={{ opacity: 0 }}
           animate={{ 
+            opacity: 0.6,
+            y: [0, 30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ 
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            times: [0, 0.5, 1]
+          }}
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-orb-1 rounded-full mix-blend-multiply filter blur-2xl will-change-transform"
+        />
+        
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: 0.6,
+            y: [0, -30, 0],
+            scale: [1.1, 1, 1.1],
+          }}
+          transition={{ 
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+            delay: 0.5
+          }}
+          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-gradient-orb-2 rounded-full mix-blend-multiply filter blur-2xl will-change-transform"
+        />
+        
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: 0.6,
+            y: [0, 40, 0],
             scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-            x: [0, 50, 0],
-            y: [0, 30, 0]
           }}
           transition={{ 
-            duration: 20,
+            duration: 12,
             repeat: Infinity,
-            ease: "linear" 
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+            delay: 1
           }}
-          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-rose-200/20 to-pink-200/20 rounded-full mix-blend-multiply filter blur-3xl"
-        />
-        
-        <motion.div 
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            rotate: [180, 360, 180],
-            x: [0, -30, 0],
-            y: [0, 50, 0]
-          }}
-          transition={{ 
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear" 
-          }}
-          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-gradient-to-br from-purple-200/20 to-rose-200/20 rounded-full mix-blend-multiply filter blur-3xl"
-        />
-        
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.3, 1],
-            rotate: [0, -180, -360],
-            x: [0, -20, 0],
-            y: [0, -40, 0]
-          }}
-          transition={{ 
-            duration: 18,
-            repeat: Infinity,
-            ease: "linear" 
-          }}
-          className="absolute top-1/2 right-1/3 w-[400px] h-[400px] bg-gradient-to-br from-pink-200/20 to-purple-200/20 rounded-full mix-blend-multiply filter blur-3xl"
+          className="absolute top-1/2 right-1/3 w-[400px] h-[400px] bg-gradient-orb-3 rounded-full mix-blend-multiply filter blur-2xl will-change-transform"
         />
 
-        {/* Sparkles */}
+        {/* Optimized sparkles */}
         <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(12)].map((_, i) => (
             <motion.div
               key={i}
               initial={{ 
@@ -94,15 +99,18 @@ function App() {
               animate={{ 
                 opacity: [0, 1, 0],
                 scale: [0, 1, 0],
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight
               }}
               transition={{
-                duration: Math.random() * 3 + 2,
+                duration: 2,
                 repeat: Infinity,
-                delay: Math.random() * 2
+                delay: i * 0.3,
+                ease: "easeInOut"
               }}
-              className="absolute w-1 h-1 bg-white rounded-full"
+              className="absolute w-1 h-1 bg-white rounded-full will-change-transform"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
             />
           ))}
         </div>
@@ -296,7 +304,8 @@ function App() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-light"
           >
-            Bachelor Of Science Information technology skilled in delivering professional clerical support in dynamic environments
+           As a rising programmer , I'm passionate about harnessing the powerof code to create innovative solutions . with a keen eye for detail and driven to continuosly learn 
+           , I'm dedicated to mastering  programming  languages and staying up-to-date with industry trends . I'm exited to apply my skills to realtime world teach enthusiastics , and conribute to the ever-evolving world of world technology.
           </motion.p>
         </motion.div>
       </header>
